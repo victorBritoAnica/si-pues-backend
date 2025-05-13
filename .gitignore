@@ -1,0 +1,22 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Variables de entorno
+.env
+
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+build/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Editor
+.vscode/
+.idea/
