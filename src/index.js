@@ -7,7 +7,6 @@ const businessRoutes = require('./routes/business.routes');
 app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/business', businessRoutes);
-//
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
