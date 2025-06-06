@@ -23,13 +23,13 @@ const login = async (email, password) => {
 };
 
 const register = async (userData) => {
-  const { username, email, password } = userData;
+  const { name, email, password } = userData;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // Asegúrate de que las columnas coincidan con la tabla (ej. "name" vs "username")
   const { rows } = await db.query(
-    'INSERT INTO "user" (name, email, password) VALUES ($1, $2, $3) RETURNING *',
-    [username, email, hashedPassword],
+    'INSERT INTO "users" (name, email, password) VALUES ($1, $2, $3) RETURNING *',
+    [name, email, hashedPassword],
   );
 
   return rows[0];
