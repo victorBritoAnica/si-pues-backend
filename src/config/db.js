@@ -1,30 +1,22 @@
 const { Pool } = require('pg');
+require('dotenv').config(); // Carga las variables de entorno
 
+// Conexión optimizada para Neon.tech
 const pool = new Pool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-  connectionTimeoutMillis: 15000, // 15 segundos
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
+  max: 20, // Máximo de conexiones
+  min: 2, // Mínimo de conexiones mantenidas
   idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000,
 });
 
-pool.on('connect', () => console.log('Conectado a Supabase PostgreSQL'));
-pool.on('error', (err) => console.error('Error de conexión:', err));
+// Verificación automática
 pool
-  .query('SELECT NOW() AS current_time')
+  .query('SELECT NOW()')
   .then((res) =>
-    console.log(
-      '✅ Conexión exitosa. Hora Supabase:',
-      res.rows[0].current_time,
-    ),
+    console.log('✅ Conectado a Neon.tech. Hora actual:', res.rows[0].now),
   )
   .catch((err) => console.error('❌ Error de conexión:', err));
-module.exports = {
-  query: (text, params) => pool.query(text, params),
-  end: () => pool.end(),
-};
+
+module.exports = pool;
