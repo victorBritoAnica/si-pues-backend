@@ -12,10 +12,9 @@ app.use(express.json());
 
 // Rutas públicas
 app.use('/api/auth', authRoutes);
-
+app.use('/api/business', businessRoutes);
 // Rutas protegidas
 app.use('/api/users', authenticate, userRoutes);
-app.use('/api/business', authenticate, businessRoutes);
 
 // Manejo de errores
 app.use((err, req, res, next) => {
