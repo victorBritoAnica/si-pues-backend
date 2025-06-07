@@ -3,7 +3,7 @@ const { generateToken } = require('../utils/jwt');
 const bcrypt = require('bcryptjs');
 
 const login = async (email, password) => {
-  const { rows } = await db.query('SELECT * FROM "user" WHERE email = $1;', [
+  const { rows } = await db.query('SELECT * FROM "users" WHERE email = $1;', [
     email,
   ]);
 
